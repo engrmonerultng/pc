@@ -1,641 +1,254 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kishoreganj PBS | L-1 Substation</title>
+<title>Kishoreganj PBS Map</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    background: #eef2f5;
-    color: #1f2933;
+    margin: 0;
+    background: #f1f5f9;
+    text-align: center;
 }
-
-/* HEADER */
 
 header {
-    background: #075e40;
+    background: #064e3b;
     color: white;
-    text-align: center;
-    padding: 20px 10px;
+    padding: 18px;
 }
 
-header h2 {
-    margin: 5px;
-    font-size: 22px;
-}
-
-header h3 {
-    margin: 6px;
-    font-size: 17px;
-}
-
-/* NAVIGATION */
-
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+.map-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 10px;
     background: white;
-    padding: 13px;
-    box-shadow: 0 2px 6px #0002;
+    border-radius: 10px;
 }
 
-nav button {
-    border: 0;
-    border-radius: 6px;
-    background: #087f5b;
-    color: white;
-    padding: 13px 20px;
-    font-size: 15px;
+svg {
+    width: 100%;
+    height: auto;
+    background: #e8f2e8;
+    border: 1px solid #aaa;
+}
+
+.area {
+    fill: #86efac;
+    stroke: #333;
+    stroke-width: 2;
     cursor: pointer;
 }
 
-nav button.active,
-nav button:hover {
-    background: #03452f;
+.area:hover {
+    stroke: red;
+    stroke-width: 4;
 }
 
-/* COMMON SECTION */
-
-.section {
-    display: none;
-    width: 96%;
-    max-width: 1250px;
-    margin: 18px auto;
-    background: white;
-    padding: 18px;
-    border-radius: 9px;
-    box-shadow: 0 2px 8px #0002;
+.area.off {
+    fill: #111827;
 }
 
-.section h2 {
-    text-align: center;
-    color: #075e40;
-    margin-top: 5px;
+.area.light {
+    fill: #bbf7d0;
 }
 
-/* SCADA */
-
-.scada {
-    background: #17232f;
-    color: white;
-    padding: 22px 12px;
-    border-radius: 8px;
-    text-align: center;
-    overflow: hidden;
-}
-
-.scada h3 {
-    color: white;
-}
-
-.equipment {
-    display: inline-block;
-    padding: 13px 20px;
-    border-radius: 6px;
+.area-label {
+    font-size: 13px;
+    fill: #111;
     font-weight: bold;
-    margin: 4px;
-}
-
-.incoming {
-    background: #174d77;
-    border: 2px solid #35a9ff;
-}
-
-.breaker {
-    background: #485866;
-    border: 2px solid #c5d0d9;
-}
-
-.transformer {
-    background: #59451d;
-    border: 2px solid #ffc83d;
-    padding: 18px 28px;
-}
-
-.vline {
-    height: 30px;
-    width: 3px;
-    background: #e6e6e6;
-    margin: auto;
-}
-
-.busbar {
-    height: 8px;
-    background: #e5b638;
-    width: 95%;
-    margin: 24px auto 16px;
-    border-radius: 4px;
-}
-
-.feeder-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-}
-
-.feeder {
-    background: #263b4c;
-    border: 1px solid #7890a2;
-    padding: 16px 5px;
-    border-radius: 6px;
-}
-
-.feeder h4 {
-    margin: 4px;
-    color: white;
-}
-
-.feeder small {
-    display: block;
-    color: #d2dbe2;
-    margin-top: 8px;
-}
-
-.note {
-    font-size: 12px;
-    color: #c5d1da;
-    margin: 18px 0 0;
-}
-
-/* VILLAGE MAP */
-
-.map-wrap {
-    width: 100%;
-    overflow: auto;
-    text-align: center;
-    background: #f8fafc;
-    border: 1px solid #d5dce2;
-    border-radius: 7px;
-    padding: 8px;
-}
-
-.map-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: 1100px;
-    margin: auto;
+    pointer-events: none;
 }
 
 .legend {
     display: flex;
     justify-content: center;
+    gap: 20px;
     flex-wrap: wrap;
-    gap: 18px;
-    margin: 14px 0;
+    margin: 15px;
 }
 
 .legend span {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    font-size: 14px;
+    gap: 6px;
 }
 
-.swatch {
+.color {
     width: 18px;
     height: 18px;
-    border: 1px solid #555;
     display: inline-block;
-    border-radius: 3px;
+    border: 1px solid #333;
 }
 
-.map-note {
-    font-size: 13px;
-    line-height: 1.6;
-    color: #555;
-    background: #f5f7f8;
-    padding: 12px;
-    border-radius: 6px;
+button {
+    padding: 9px 15px;
+    margin: 5px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* FEEDER TABLE */
-
-.table-wrap {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 650px;
-}
-
-th, td {
-    border: 1px solid #b8c2cc;
-    padding: 12px;
-    text-align: center;
-}
-
-th {
-    background: #087f5b;
-    color: white;
-}
-
-td {
-    background: white;
-}
-
-.na {
-    font-weight: bold;
-    color: #777;
-}
-
-/* FOOTER */
+.on-btn { background: #22c55e; }
+.light-btn { background: #bbf7d0; }
+.off-btn { background: #111827; color: white; }
 
 footer {
-    background: #075e40;
-    color: white;
-    text-align: center;
-    padding: 18px;
-    margin-top: 25px;
-    line-height: 1.7;
+    padding: 15px;
+    color: #555;
 }
-
-/* MOBILE */
-
-@media(max-width:650px) {
-
-    header h2 {
-        font-size: 18px;
-    }
-
-    nav button {
-        flex: 1 1 40%;
-        padding: 12px 8px;
-    }
-
-    .feeder-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .section {
-        padding: 12px;
-    }
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-
 <header>
-
     <h2>KISHOREGANJ PALLI BIDYUT SAMITY</h2>
-
-    <h3>KISHOREGANJ L-1 SUBSTATION</h3>
-
-    <h3>20 MVA | 33/11 kV</h3>
-
+    <h3>Kishoreganj Sadar Electricity Map</h3>
 </header>
 
+<div class="map-container">
 
-<!-- THREE NAVIGATION BUTTONS -->
-
-<nav>
-
-    <button class="active"
-    onclick="showPage('scada',this)">
-        SCADA LAYOUT
-    </button>
-
-    <button onclick="showPage('map',this)">
-        VILLAGE MAP
-    </button>
-
-    <button onclick="showPage('table',this)">
-        8 FEEDER TABLE
-    </button>
-
-</nav>
-
-
-<!-- 1. SCADA SECTION -->
-
-<section id="scada" class="section"
-style="display:block">
-
-    <h2>33/11 kV SUBSTATION SCADA LAYOUT</h2>
-
-    <div class="scada">
-
-        <h3>33 kV INCOMING SUPPLY</h3>
-
-        <div class="equipment incoming">
-            33 kV INCOMING
-        </div>
-
-        <div class="vline"></div>
-
-        <div class="equipment breaker">
-            33 kV CIRCUIT BREAKER
-        </div>
-
-        <div class="vline"></div>
-
-        <div class="equipment transformer">
-
-            POWER TRANSFORMER
-
-            <br><br>
-
-            20 MVA
-
-            <br>
-
-            33 / 11 kV
-
-        </div>
-
-        <div class="vline"></div>
-
-        <div class="equipment breaker">
-            11 kV MAIN BREAKER
-        </div>
-
-        <h3>11 kV BUSBAR</h3>
-
-        <div class="busbar"></div>
-
-        <div class="feeder-grid">
-
-            <div class="feeder">
-                <h4>FEEDER 1</h4>
-                <small>11 kV OUTGOING<br>STATUS: N/A</small>
-            </div>
-
-            <div class="feeder">
-                <h4>FEEDER 2</h4>
-                <small>11 kV OUTGOING<br>STATUS: N/A</small>
-            </div>
-
-            <div class="feeder">
-                <h4>FEEDER 3</h4>
-                <small>11 kV OUTGOING<br>STATUS: N/A</small>
-            </div>
-
-            <div class="feeder">
-                <h4>FEEDER 4</h4>
-                <small>11 kV OUTGOING<br>STATUS: N/A</small>
-            </div>
-
-            <div class="feeder">
-                <h4>FEEDER 5</h4>
-                <small>11 kV OUTGOING<br>STATUS: N/A</small>
-            </div>
-
-            <div class="feeder">
-                <h4>FEEDER 6</h4>
-                <small>11 kV OUTGOING<br>STATUS: N/A</small>
-            </div>
-
-            <div class="feeder">
-                <h4>FEEDER 7</h4>
-                <small>11 kV OUTGOING<br>STATUS: N/A</small>
-            </div>
-
-            <div class="feeder">
-                <h4>FEEDER 8</h4>
-                <small>11 kV OUTGOING<br>STATUS: N/A</small>
-            </div>
-
-        </div>
-
-        <p class="note">
-            STATIC SCADA DISPLAY — NOT CONNECTED TO LIVE EQUIPMENT
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- 2. KISHOREGANJ SADAR VILLAGE MAP -->
-
-<section id="map" class="section">
-
-    <h2>KISHOREGANJ SADAR UPAZILA MAP</h2>
+    <h3>Electricity Supply Area Map</h3>
 
     <div class="legend">
-
-        <span>
-            <i class="swatch" style="background:#28a745"></i>
-            Electricity ON
-        </span>
-
-        <span>
-            <i class="swatch" style="background:#dcf5dc"></i>
-            Light Green
-        </span>
-
-        <span>
-            <i class="swatch" style="background:#000000"></i>
-            Electricity OFF
-        </span>
-
+        <span><i class="color" style="background:#86efac"></i> Electricity ON</span>
+        <span><i class="color" style="background:#bbf7d0"></i> Partial Supply</span>
+        <span><i class="color" style="background:#111827"></i> Electricity OFF</span>
     </div>
 
-    <div class="map-wrap">
+    <p>Click any area on the map to change its status.</p>
 
-        <img
-        class="map-image"
-        src="kishoreganj_map.png"
-        alt="Kishoreganj Sadar LGED Map">
+    <svg viewBox="0 0 700 650">
 
+        <!-- Outer map boundary -->
+        <path d="M170 40 L350 25 L520 85 L635 210
+                 L600 390 L520 550 L340 620
+                 L170 570 L65 430 L85 210 Z"
+              fill="#f0fdf4"
+              stroke="#166534"
+              stroke-width="5"/>
+
+        <!-- Main road -->
+        <path d="M80 300 Q250 250 350 330
+                 T620 270"
+              fill="none"
+              stroke="#d97706"
+              stroke-width="9"/>
+
+        <path d="M350 30 Q320 200 350 330
+                 T340 610"
+              fill="none"
+              stroke="#d97706"
+              stroke-width="7"/>
+
+        <!-- Area 1 -->
+        <polygon class="area"
+          points="175,65 330,45 350,180 220,220 115,160"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="215" y="135">Area 1</text>
+
+        <!-- Area 2 -->
+        <polygon class="area"
+          points="350,45 510,95 550,205 420,230 350,180"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="420" y="150">Area 2</text>
+
+        <!-- Area 3 -->
+        <polygon class="area"
+          points="115,160 220,220 250,340 100,360 75,260"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="135" y="285">Area 3</text>
+
+        <!-- Area 4 -->
+        <polygon class="area"
+          points="220,220 350,180 420,230 390,350 250,340"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="295" y="280">Area 4</text>
+
+        <!-- Area 5 -->
+        <polygon class="area"
+          points="420,230 550,205 610,300 520,390 390,350"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="480" y="305">Area 5</text>
+
+        <!-- Area 6 -->
+        <polygon class="area"
+          points="100,360 250,340 270,490 170,550 80,440"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="155" y="430">Area 6</text>
+
+        <!-- Area 7 -->
+        <polygon class="area"
+          points="250,340 390,350 420,500 270,490"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="315" y="425">Area 7</text>
+
+        <!-- Area 8 -->
+        <polygon class="area"
+          points="390,350 520,390 550,520 420,580 420,500"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="455" y="455">Area 8</text>
+
+        <!-- Area 9 -->
+        <polygon class="area"
+          points="170,550 270,490 420,500 420,580
+                  340,610 200,585"
+          onclick="changeStatus(this)"/>
+        <text class="area-label" x="290" y="555">Area 9</text>
+
+    </svg>
+
+    <div>
+        <button class="on-btn" onclick="setAll('on')">
+            All ON
+        </button>
+
+        <button class="light-btn" onclick="setAll('light')">
+            Partial Supply
+        </button>
+
+        <button class="off-btn" onclick="setAll('off')">
+            All OFF
+        </button>
     </div>
 
-    <p class="map-note">
-
-        Source: LGED Kishoreganj Sadar Upazila map.
-
-        Settlement areas are highlighted in light green.
-        Original roads, rivers, labels and administrative
-        boundaries are retained.
-
-        The source map does not provide individually
-        surveyed village boundary polygons. Therefore,
-        green patches should not be treated as verified
-        individual village boundaries.
-
-        No village has been assigned an OFF status.
-
-    </p>
-
-</section>
-
-
-<!-- 3. COMPLETE EIGHT FEEDER TABLE -->
-
-<section id="table" class="section">
-
-    <h2>11 kV FEEDER MONITORING TABLE</h2>
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>SL</th>
-                    <th>Feeder Name</th>
-                    <th>Voltage</th>
-                    <th>Current</th>
-                    <th>Breaker Status</th>
-                    <th>Remarks</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>01</td>
-                    <td>Feeder 1</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td class="na">N/A</td>
-                    <td>--</td>
-                </tr>
-
-                <tr>
-                    <td>02</td>
-                    <td>Feeder 2</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td class="na">N/A</td>
-                    <td>--</td>
-                </tr>
-
-                <tr>
-                    <td>03</td>
-                    <td>Feeder 3</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td class="na">N/A</td>
-                    <td>--</td>
-                </tr>
-
-                <tr>
-                    <td>04</td>
-                    <td>Feeder 4</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td class="na">N/A</td>
-                    <td>--</td>
-                </tr>
-
-                <tr>
-                    <td>05</td>
-                    <td>Feeder 5</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td class="na">N/A</td>
-                    <td>--</td>
-                </tr>
-
-                <tr>
-                    <td>06</td>
-                    <td>Feeder 6</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td class="na">N/A</td>
-                    <td>--</td>
-                </tr>
-
-                <tr>
-                    <td>07</td>
-                    <td>Feeder 7</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td class="na">N/A</td>
-                    <td>--</td>
-                </tr>
-
-                <tr>
-                    <td>08</td>
-                    <td>Feeder 8</td>
-                    <td>--</td>
-                    <td>--</td>
-                    <td class="na">N/A</td>
-                    <td>--</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- FOOTER -->
+</div>
 
 <footer>
-
-    KISHOREGANJ PALLI BIDYUT SAMITY
-
-    <br>
-
-    KISHOREGANJ L-1 SUBSTATION | 20 MVA
-
+    Designed for Kishoreganj Palli Bidyut Samity
 </footer>
 
-
-<!-- JAVASCRIPT -->
-
 <script>
-
-function showPage(page,button) {
-
-    // Hide all sections
-
-    document.querySelectorAll('.section').forEach(
-        function(item) {
-            item.style.display = 'none';
-        }
-    );
-
-    // Show selected section
-
-    document.getElementById(page).style.display = 'block';
-
-    // Remove active button style
-
-    document.querySelectorAll('nav button').forEach(
-        function(item) {
-            item.classList.remove('active');
-        }
-    );
-
-    // Activate selected button
-
-    button.classList.add('active');
-
-    // Scroll to top
-
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-
+function changeStatus(area) {
+    if (!area.classList.contains("off") &&
+        !area.classList.contains("light")) {
+        area.classList.add("off");
+    }
+    else if (area.classList.contains("off")) {
+        area.classList.remove("off");
+        area.classList.add("light");
+    }
+    else {
+        area.classList.remove("light");
+    }
 }
 
+function setAll(status) {
+    document.querySelectorAll(".area").forEach(area => {
+        area.classList.remove("off", "light");
+
+        if (status === "off") {
+            area.classList.add("off");
+        }
+
+        if (status === "light") {
+            area.classList.add("light");
+        }
+    });
+}
 </script>
 
 </body>
