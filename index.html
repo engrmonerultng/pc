@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +14,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #eef2f3;
+    background: #eef2f5;
     color: #222;
 }
 
@@ -23,49 +22,53 @@ header {
     background: #075e40;
     color: white;
     text-align: center;
-    padding: 22px 10px;
+    padding: 20px 10px;
 }
 
-header h2 {
-    margin: 5px;
-}
-
-header h3 {
-    margin: 8px;
+header h2, header h3 {
+    margin: 7px;
 }
 
 nav {
+    background: #ffffff;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 20px 10px;
-    background: white;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 5px #ccc;
 }
 
 nav button {
     background: #087f5b;
     color: white;
     border: none;
-    padding: 13px 22px;
-    border-radius: 6px;
+    padding: 13px 20px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 15px;
 }
 
-nav button:hover,
 nav button.active {
+    background: #003e2b;
+}
+
+nav button:hover {
     background: #03452f;
 }
 
 .section {
     display: none;
     background: white;
-    margin: 20px auto;
+    margin: 18px auto;
     padding: 20px;
-    max-width: 1100px;
+    width: 96%;
+    max-width: 1200px;
     border-radius: 8px;
-    box-shadow: 0 2px 6px #ccc;
+    box-shadow: 0 2px 7px #ccc;
 }
 
 .section h2 {
@@ -73,71 +76,151 @@ nav button.active {
     color: #075e40;
 }
 
-/* SCADA */
+/* SCADA DESIGN */
 
-.scada-box {
+.scada {
+    background: #17232f;
+    color: white;
+    padding: 20px 10px;
+    border-radius: 8px;
     text-align: center;
-    padding: 15px;
 }
 
-.supply {
+.scada h3 {
+    color: #ffffff;
+}
+
+.voltage {
     display: inline-block;
-    padding: 12px 25px;
-    background: #dceeff;
-    border: 2px solid #1976d2;
+    background: #174d77;
+    border: 2px solid #35a9ff;
+    padding: 13px 25px;
     border-radius: 6px;
     font-weight: bold;
 }
 
-.line {
-    width: 3px;
+.vertical-line {
     height: 35px;
-    background: #333;
+    width: 3px;
+    background: #e6e6e6;
     margin: auto;
+}
+
+.breaker {
+    display: inline-block;
+    background: #4c5661;
+    border: 2px solid #c5d0d9;
+    padding: 10px 22px;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 .transformer {
     display: inline-block;
-    padding: 15px 30px;
-    background: #fff0c2;
-    border: 2px solid #e0a000;
+    background: #59451d;
+    border: 2px solid #ffc83d;
+    padding: 18px 30px;
     border-radius: 8px;
+    color: white;
     font-weight: bold;
+}
+
+.busbar {
+    background: #e5b638;
+    height: 8px;
+    width: 95%;
+    margin: 25px auto 15px;
+    border-radius: 5px;
 }
 
 .feeder-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-top: 25px;
 }
 
 .feeder {
-    padding: 18px 5px;
-    border: 2px solid #087f5b;
-    border-radius: 7px;
-    text-align: center;
-    background: #e5f5ec;
-    font-weight: bold;
+    background: #263b4c;
+    border: 1px solid #6b8498;
+    padding: 15px 5px;
+    border-radius: 6px;
 }
 
-.feeder span {
-    display: block;
-    margin-top: 8px;
-    color: green;
+.feeder h4 {
+    margin: 5px;
+    color: #ffffff;
+}
+
+.feeder .breaker-status {
+    color: #b9c5cf;
+    font-size: 13px;
+    margin: 8px;
+}
+
+.lamp {
+    width: 13px;
+    height: 13px;
+    background: #777;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.scada-note {
+    color: #bdc9d4;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+/* MAP */
+
+.map-frame {
+    width: 100%;
+    height: 650px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+}
+
+.map-link {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 12px 18px;
+    background: #087f5b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.union-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.union {
+    background: #e8f3eb;
+    padding: 12px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #c2ddc8;
 }
 
 /* TABLE */
 
+.table-wrap {
+    overflow-x: auto;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    min-width: 600px;
 }
 
 th, td {
-    border: 1px solid #aaa;
-    padding: 12px;
+    border: 1px solid #bbb;
+    padding: 13px;
     text-align: center;
 }
 
@@ -146,49 +229,40 @@ th {
     color: white;
 }
 
-.on {
-    color: green;
+td {
+    background: #ffffff;
+}
+
+.status {
+    color: #777;
     font-weight: bold;
 }
 
-.off {
-    color: red;
-    font-weight: bold;
-}
-
-/* MAP */
-
-.map-area {
-    text-align: center;
-    padding: 35px 10px;
-    background: #eaf3e8;
-    border: 1px solid #b6cfb2;
-    border-radius: 8px;
-}
-
-.map-area p {
-    line-height: 1.8;
-}
+/* FOOTER */
 
 footer {
-    text-align: center;
-    padding: 20px;
     background: #075e40;
     color: white;
-    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    margin-top: 25px;
 }
 
-@media (max-width: 600px) {
+@media(max-width:650px) {
     .feeder-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    nav button {
-        flex: 1 1 40%;
+    .union-list {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    table {
-        font-size: 13px;
+    .map-frame {
+        height: 480px;
+    }
+
+    nav button {
+        flex: 1 1 40%;
     }
 }
 </style>
@@ -198,216 +272,957 @@ footer {
 
 <header>
     <h2>KISHOREGANJ PALLI BIDYUT SAMITY</h2>
-    <h3>Kishoreganj L-1 Substation</h3>
+    <h3>KISHOREGANJ L-1 SUBSTATION</h3>
     <h3>20 MVA</h3>
 </header>
 
 <nav>
-    <button class="active" onclick="showPage('scada', this)">
-        SCADA Layout
+    <button class="active"
+    onclick="showPage('scada',this)">
+        SCADA LAYOUT
     </button>
 
-    <button onclick="showPage('map', this)">
-        Village Map
+    <button onclick="showPage('map',this)">
+        VILLAGE MAP
     </button>
 
-    <button onclick="showPage('table', this)">
-        8 Feeder Table
+    <button onclick="showPage('table',this)">
+        FEEDER TABLE
     </button>
 </nav>
 
-<!-- SCADA LAYOUT -->
 
-<div id="scada" class="section" style="display:block">
+<!-- 1. FULL SCADA LAYOUT -->
 
-    <h2>SCADA Monitoring Layout</h2>
+<div id="scada" class="section"
+style="display:block">
 
-    <div class="scada-box">
+<h2>33/11 KV SUBSTATION SCADA</h2>
 
-        <div class="supply">
-            33 KV INCOMING SUPPLY
-        </div>
+<div class="scada">
 
-        <div class="line"></div>
+    <h3>33 KV INCOMING SUPPLY</h3>
 
-        <div class="transformer">
-            20 MVA POWER TRANSFORMER
-        </div>
-
-        <div class="line"></div>
-
-        <h3>11 KV FEEDER DISTRIBUTION</h3>
-
-        <div class="feeder-grid">
-
-            <div class="feeder">
-                FEEDER 1
-                <span>ON</span>
-            </div>
-
-            <div class="feeder">
-                FEEDER 2
-                <span>ON</span>
-            </div>
-
-            <div class="feeder">
-                FEEDER 3
-                <span>ON</span>
-            </div>
-
-            <div class="feeder">
-                FEEDER 4
-                <span>ON</span>
-            </div>
-
-            <div class="feeder">
-                FEEDER 5
-                <span>ON</span>
-            </div>
-
-            <div class="feeder">
-                FEEDER 6
-                <span>ON</span>
-            </div>
-
-            <div class="feeder">
-                FEEDER 7
-                <span>ON</span>
-            </div>
-
-            <div class="feeder">
-                FEEDER 8
-                <span>ON</span>
-            </div>
-
-        </div>
+    <div class="voltage">
+        33 KV INCOMING
     </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="breaker">
+        33 KV CIRCUIT BREAKER
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="transformer">
+        POWER TRANSFORMER
+        <br><br>
+        20 MVA
+        <br>
+        33 / 11 KV
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="breaker">
+        11 KV MAIN BREAKER
+    </div>
+
+    <h3>11 KV BUSBAR</h3>
+
+    <div class="busbar"></div>
+
+    <div class="feeder-grid">
+
+        <div class="feeder">
+            <h4>FEEDER 1</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 2</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 3</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 4</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 5</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 6</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 7</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 8</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+    </div>
+
+    <p class="scada-note">
+        STATIC SCADA DESIGN | NOT CONNECTED TO LIVE EQUIPMENT
+    </p>
+
+</div>
 </div>
 
-<!-- VILLAGE MAP -->
+
+<!-- 2. KISHOREGANJ SADAR MAP -->
 
 <div id="map" class="section">
 
-    <h2>Kishoreganj Sadar Upazila</h2>
+<h2>KISHOREGANJ SADAR UPAZILA MAP</h2>
 
-    <div class="map-area">
+<p style="text-align:center">
+    Village-wise geographical and administrative map
+</p>
 
-        <h3>Village-wise Distribution Map</h3>
+<a class="map-link"
+href="https://oldweb.lged.gov.bd/uploadeddocument/map/dhaka/kishoreganj/kishoreganj-s/kishoreganj-s.pdf"
+target="_blank">
+    OPEN FULL LGED MAP PDF
+</a>
 
-        <p>
-            KISHOREGANJ SADAR
-        </p>
+<iframe
+class="map-frame"
+src="https://oldweb.lged.gov.bd/uploadeddocument/map/dhaka/kishoreganj/kishoreganj-s/kishoreganj-s.pdf">
+</iframe>
 
-        <p>
-            Village-wise electricity distribution area
-        </p>
+<h3 style="text-align:center">
+    11 UNION PARISHADS
+</h3>
 
-        <p>
-            Map display area
-        </p>
+<div class="union-list">
 
-        <p>
-            Village boundaries and feeder coverage
-        </p>
+    <div class="union">01. Binnati (বিন্নাটি)</div>
 
-        <p>
-            Map data is not included in this standalone design.
-        </p>
+    <div class="union">02. Baulai (বৌলাই)</div>
 
-    </div>
+    <div class="union">03. Chauddasata (চৌদ্দশত)</div>
+
+    <div class="union">04. Danapatali (দানাপাটুলী)</div>
+
+    <div class="union">05. Jasodal (যশোদল)</div>
+
+    <div class="union">06. Korsha Kariail (কর্শাকড়িয়াইল)</div>
+
+    <div class="union">07. Latibabad (লতিবাবাদ)</div>
+
+    <div class="union">08. Mahinanda (মহিনন্দ)</div>
+
+    <div class="union">09. Maijkhapan (মাইজখাপন)</div>
+
+    <div class="union">10. Maria (মারিয়া)</div>
+
+    <div class="union">11. Rashidabad (রশিদাবাদ)</div>
+
 </div>
 
-<!-- FEEDER TABLE -->
+<p style="text-align:center">
+    Kishoreganj Sadar Upazila, Kishoreganj District
+</p>
+
+</div>
+
+
+<!-- 3. COMPLETE FEEDER TABLE -->
 
 <div id="table" class="section">
 
-    <h2>11 KV Feeder Status</h2>
+<h2>11 KV FEEDER MONITORING TABLE</h2>
 
-    <table>
+<div class="table-wrap">
 
-        <tr>
-            <th>SL</th>
-            <th>Feeder Name</th>
-            <th>Status</th>
-        </tr>
+<table>
 
-        <tr>
-            <td>1</td>
-            <td>Feeder 1</td>
-            <td class="on">ON</td>
-        </tr>
+<thead>
+<tr>
+    <th>SL</th>
+    <th>Feeder Name</th>
+    <th>Voltage</th>
+    <th>Current</th>
+    <th>Breaker Status</th>
+    <th>Remarks</th>
+</tr>
+</thead>
 
-        <tr>
-            <td>2</td>
-            <td>Feeder 2</td>
-            <td class="on">ON</td>
-        </tr>
+<tbody>
 
-        <tr>
-            <td>3</td>
-            <td>Feeder 3</td>
-            <td class="on">ON</td>
-        </tr>
+<tr>
+    <td>01</td>
+    <td>Feeder 1</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
 
-        <tr>
-            <td>4</td>
-            <td>Feeder 4</td>
-            <td class="on">ON</td>
-        </tr>
+<tr>
+    <td>02</td>
+    <td>Feeder 2</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
 
-        <tr>
-            <td>5</td>
-            <td>Feeder 5</td>
-            <td class="on">ON</td>
-        </tr>
+<tr>
+    <td>03</td>
+    <td>Feeder 3</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
 
-        <tr>
-            <td>6</td>
-            <td>Feeder 6</td>
-            <td class="on">ON</td>
-        </tr>
+<tr>
+    <td>04</td>
+    <td>Feeder 4</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
 
-        <tr>
-            <td>7</td>
-            <td>Feeder 7</td>
-            <td class="on">ON</td>
-        </tr>
+<tr>
+    <td>05</td>
+    <td>Feeder 5</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
 
-        <tr>
-            <td>8</td>
-            <td>Feeder 8</td>
-            <td class="on">ON</td>
-        </tr>
+<tr>
+    <td>06</td>
+    <td>Feeder 6</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
 
-    </table>
+<tr>
+    <td>07</td>
+    <td>Feeder 7</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+<tr>
+    <td>08</td>
+    <td>Feeder 8</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+</tbody>
+
+</table>
 
 </div>
+</div>
+
 
 <footer>
-    Kishoreganj Palli Bidyut Samity
+    KISHOREGANJ PALLI BIDYUT SAMITY
     <br>
-    Kishoreganj L-1 Substation | 20 MVA
+    KISHOREGANJ L-1 SUBSTATION | 20 MVA
 </footer>
+
 
 <script>
 
 function showPage(page, button) {
 
-    let sections = document.getElementsByClassName("section");
+    let sections =
+    document.querySelectorAll(".section");
 
-    for (let i = 0; i < sections.length; i++) {
-        sections[i].style.display = "none";
-    }
+    sections.forEach(function(section) {
+        section.style.display = "none";
+    });
 
     document.getElementById(page).style.display = "block";
 
-    let buttons = document.querySelectorAll("nav button");
+    let buttons =
+    document.querySelectorAll("nav button");
 
     buttons.forEach(function(btn) {
         btn.classList.remove("active");
     });
 
     button.classList.add("active");
+
+    window.scrollTo(0, 0);
+}
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kishoreganj PBS - L1 Substation</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef2f5;
+    color: #222;
+}
+
+header {
+    background: #075e40;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+header h2, header h3 {
+    margin: 7px;
+}
+
+nav {
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 5px #ccc;
+}
+
+nav button {
+    background: #087f5b;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+nav button.active {
+    background: #003e2b;
+}
+
+nav button:hover {
+    background: #03452f;
+}
+
+.section {
+    display: none;
+    background: white;
+    margin: 18px auto;
+    padding: 20px;
+    width: 96%;
+    max-width: 1200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 7px #ccc;
+}
+
+.section h2 {
+    text-align: center;
+    color: #075e40;
+}
+
+/* SCADA DESIGN */
+
+.scada {
+    background: #17232f;
+    color: white;
+    padding: 20px 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.scada h3 {
+    color: #ffffff;
+}
+
+.voltage {
+    display: inline-block;
+    background: #174d77;
+    border: 2px solid #35a9ff;
+    padding: 13px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.vertical-line {
+    height: 35px;
+    width: 3px;
+    background: #e6e6e6;
+    margin: auto;
+}
+
+.breaker {
+    display: inline-block;
+    background: #4c5661;
+    border: 2px solid #c5d0d9;
+    padding: 10px 22px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.transformer {
+    display: inline-block;
+    background: #59451d;
+    border: 2px solid #ffc83d;
+    padding: 18px 30px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+.busbar {
+    background: #e5b638;
+    height: 8px;
+    width: 95%;
+    margin: 25px auto 15px;
+    border-radius: 5px;
+}
+
+.feeder-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.feeder {
+    background: #263b4c;
+    border: 1px solid #6b8498;
+    padding: 15px 5px;
+    border-radius: 6px;
+}
+
+.feeder h4 {
+    margin: 5px;
+    color: #ffffff;
+}
+
+.feeder .breaker-status {
+    color: #b9c5cf;
+    font-size: 13px;
+    margin: 8px;
+}
+
+.lamp {
+    width: 13px;
+    height: 13px;
+    background: #777;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.scada-note {
+    color: #bdc9d4;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+/* MAP */
+
+.map-frame {
+    width: 100%;
+    height: 650px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+}
+
+.map-link {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 12px 18px;
+    background: #087f5b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.union-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.union {
+    background: #e8f3eb;
+    padding: 12px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #c2ddc8;
+}
+
+/* TABLE */
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th, td {
+    border: 1px solid #bbb;
+    padding: 13px;
+    text-align: center;
+}
+
+th {
+    background: #087f5b;
+    color: white;
+}
+
+td {
+    background: #ffffff;
+}
+
+.status {
+    color: #777;
+    font-weight: bold;
+}
+
+/* FOOTER */
+
+footer {
+    background: #075e40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+@media(max-width:650px) {
+    .feeder-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .union-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .map-frame {
+        height: 480px;
+    }
+
+    nav button {
+        flex: 1 1 40%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>KISHOREGANJ PALLI BIDYUT SAMITY</h2>
+    <h3>KISHOREGANJ L-1 SUBSTATION</h3>
+    <h3>20 MVA</h3>
+</header>
+
+<nav>
+    <button class="active"
+    onclick="showPage('scada',this)">
+        SCADA LAYOUT
+    </button>
+
+    <button onclick="showPage('map',this)">
+        VILLAGE MAP
+    </button>
+
+    <button onclick="showPage('table',this)">
+        FEEDER TABLE
+    </button>
+</nav>
+
+
+<!-- 1. FULL SCADA LAYOUT -->
+
+<div id="scada" class="section"
+style="display:block">
+
+<h2>33/11 KV SUBSTATION SCADA</h2>
+
+<div class="scada">
+
+    <h3>33 KV INCOMING SUPPLY</h3>
+
+    <div class="voltage">
+        33 KV INCOMING
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="breaker">
+        33 KV CIRCUIT BREAKER
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="transformer">
+        POWER TRANSFORMER
+        <br><br>
+        20 MVA
+        <br>
+        33 / 11 KV
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="breaker">
+        11 KV MAIN BREAKER
+    </div>
+
+    <h3>11 KV BUSBAR</h3>
+
+    <div class="busbar"></div>
+
+    <div class="feeder-grid">
+
+        <div class="feeder">
+            <h4>FEEDER 1</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 2</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 3</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 4</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 5</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 6</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 7</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+        <div class="feeder">
+            <h4>FEEDER 8</h4>
+            <div class="breaker-status">
+                <span class="lamp"></span>
+                STATUS: N/A
+            </div>
+            <div>11 KV OUTGOING</div>
+        </div>
+
+    </div>
+
+    <p class="scada-note">
+        STATIC SCADA DESIGN | NOT CONNECTED TO LIVE EQUIPMENT
+    </p>
+
+</div>
+</div>
+
+
+<!-- 2. KISHOREGANJ SADAR MAP -->
+
+<div id="map" class="section">
+
+<h2>KISHOREGANJ SADAR UPAZILA MAP</h2>
+
+<p style="text-align:center">
+    Village-wise geographical and administrative map
+</p>
+
+<a class="map-link"
+href="https://oldweb.lged.gov.bd/uploadeddocument/map/dhaka/kishoreganj/kishoreganj-s/kishoreganj-s.pdf"
+target="_blank">
+    OPEN FULL LGED MAP PDF
+</a>
+
+<iframe
+class="map-frame"
+src="https://oldweb.lged.gov.bd/uploadeddocument/map/dhaka/kishoreganj/kishoreganj-s/kishoreganj-s.pdf">
+</iframe>
+
+<h3 style="text-align:center">
+    11 UNION PARISHADS
+</h3>
+
+<div class="union-list">
+
+    <div class="union">01. Binnati (বিন্নাটি)</div>
+
+    <div class="union">02. Baulai (বৌলাই)</div>
+
+    <div class="union">03. Chauddasata (চৌদ্দশত)</div>
+
+    <div class="union">04. Danapatali (দানাপাটুলী)</div>
+
+    <div class="union">05. Jasodal (যশোদল)</div>
+
+    <div class="union">06. Korsha Kariail (কর্শাকড়িয়াইল)</div>
+
+    <div class="union">07. Latibabad (লতিবাবাদ)</div>
+
+    <div class="union">08. Mahinanda (মহিনন্দ)</div>
+
+    <div class="union">09. Maijkhapan (মাইজখাপন)</div>
+
+    <div class="union">10. Maria (মারিয়া)</div>
+
+    <div class="union">11. Rashidabad (রশিদাবাদ)</div>
+
+</div>
+
+<p style="text-align:center">
+    Kishoreganj Sadar Upazila, Kishoreganj District
+</p>
+
+</div>
+
+
+<!-- 3. COMPLETE FEEDER TABLE -->
+
+<div id="table" class="section">
+
+<h2>11 KV FEEDER MONITORING TABLE</h2>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+    <th>SL</th>
+    <th>Feeder Name</th>
+    <th>Voltage</th>
+    <th>Current</th>
+    <th>Breaker Status</th>
+    <th>Remarks</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+    <td>01</td>
+    <td>Feeder 1</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+<tr>
+    <td>02</td>
+    <td>Feeder 2</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+<tr>
+    <td>03</td>
+    <td>Feeder 3</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+<tr>
+    <td>04</td>
+    <td>Feeder 4</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+<tr>
+    <td>05</td>
+    <td>Feeder 5</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+<tr>
+    <td>06</td>
+    <td>Feeder 6</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+<tr>
+    <td>07</td>
+    <td>Feeder 7</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+<tr>
+    <td>08</td>
+    <td>Feeder 8</td>
+    <td>--</td>
+    <td>--</td>
+    <td class="status">N/A</td>
+    <td>--</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+
+
+<footer>
+    KISHOREGANJ PALLI BIDYUT SAMITY
+    <br>
+    KISHOREGANJ L-1 SUBSTATION | 20 MVA
+</footer>
+
+
+<script>
+
+function showPage(page, button) {
+
+    let sections =
+    document.querySelectorAll(".section");
+
+    sections.forEach(function(section) {
+        section.style.display = "none";
+    });
+
+    document.getElementById(page).style.display = "block";
+
+    let buttons =
+    document.querySelectorAll("nav button");
+
+    buttons.forEach(function(btn) {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    window.scrollTo(0, 0);
 }
 
 </script>
