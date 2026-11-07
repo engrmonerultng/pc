@@ -1,141 +1,415 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Kishoreganj PBS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            background: #f0f2f5;
-            margin: 0;
-        }
+<title>Kishoreganj PBS - L1 Substation</title>
 
-        header {
-            background: #075e40;
-            color: white;
-            padding: 20px;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        .buttons {
-            margin: 25px;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef2f3;
+    color: #222;
+}
 
-        button {
-            padding: 14px 20px;
-            margin: 5px;
-            background: #087f5b;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            cursor: pointer;
-        }
+header {
+    background: #075e40;
+    color: white;
+    text-align: center;
+    padding: 22px 10px;
+}
 
-        button:hover {
-            background: #064d38;
-        }
+header h2 {
+    margin: 5px;
+}
 
-        .section {
-            display: none;
-            background: white;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 8px;
-        }
+header h3 {
+    margin: 8px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px 10px;
+    background: white;
+}
 
-        th, td {
-            border: 1px solid #aaa;
-            padding: 10px;
-        }
+nav button {
+    background: #087f5b;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
 
-        th {
-            background: #087f5b;
-            color: white;
-        }
+nav button:hover,
+nav button.active {
+    background: #03452f;
+}
 
-        .on {
-            color: green;
-            font-weight: bold;
-        }
+.section {
+    display: none;
+    background: white;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1100px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px #ccc;
+}
 
-        .off {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+.section h2 {
+    text-align: center;
+    color: #075e40;
+}
+
+/* SCADA */
+
+.scada-box {
+    text-align: center;
+    padding: 15px;
+}
+
+.supply {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #dceeff;
+    border: 2px solid #1976d2;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.line {
+    width: 3px;
+    height: 35px;
+    background: #333;
+    margin: auto;
+}
+
+.transformer {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #fff0c2;
+    border: 2px solid #e0a000;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.feeder-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.feeder {
+    padding: 18px 5px;
+    border: 2px solid #087f5b;
+    border-radius: 7px;
+    text-align: center;
+    background: #e5f5ec;
+    font-weight: bold;
+}
+
+.feeder span {
+    display: block;
+    margin-top: 8px;
+    color: green;
+}
+
+/* TABLE */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #aaa;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: #087f5b;
+    color: white;
+}
+
+.on {
+    color: green;
+    font-weight: bold;
+}
+
+.off {
+    color: red;
+    font-weight: bold;
+}
+
+/* MAP */
+
+.map-area {
+    text-align: center;
+    padding: 35px 10px;
+    background: #eaf3e8;
+    border: 1px solid #b6cfb2;
+    border-radius: 8px;
+}
+
+.map-area p {
+    line-height: 1.8;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #075e40;
+    color: white;
+    margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+    .feeder-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    nav button {
+        flex: 1 1 40%;
+    }
+
+    table {
+        font-size: 13px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
     <h2>KISHOREGANJ PALLI BIDYUT SAMITY</h2>
-    <h3>Kishoreganj-1 Substation</h3>
+    <h3>Kishoreganj L-1 Substation</h3>
     <h3>20 MVA</h3>
 </header>
 
-<div class="buttons">
-    <button onclick="showPage('scada')">SCADA Layout</button>
+<nav>
+    <button class="active" onclick="showPage('scada', this)">
+        SCADA Layout
+    </button>
 
-    <button onclick="showPage('map')">Village Map</button>
+    <button onclick="showPage('map', this)">
+        Village Map
+    </button>
 
-    <button onclick="showPage('table')">8 Feeder Table</button>
+    <button onclick="showPage('table', this)">
+        8 Feeder Table
+    </button>
+</nav>
+
+<!-- SCADA LAYOUT -->
+
+<div id="scada" class="section" style="display:block">
+
+    <h2>SCADA Monitoring Layout</h2>
+
+    <div class="scada-box">
+
+        <div class="supply">
+            33 KV INCOMING SUPPLY
+        </div>
+
+        <div class="line"></div>
+
+        <div class="transformer">
+            20 MVA POWER TRANSFORMER
+        </div>
+
+        <div class="line"></div>
+
+        <h3>11 KV FEEDER DISTRIBUTION</h3>
+
+        <div class="feeder-grid">
+
+            <div class="feeder">
+                FEEDER 1
+                <span>ON</span>
+            </div>
+
+            <div class="feeder">
+                FEEDER 2
+                <span>ON</span>
+            </div>
+
+            <div class="feeder">
+                FEEDER 3
+                <span>ON</span>
+            </div>
+
+            <div class="feeder">
+                FEEDER 4
+                <span>ON</span>
+            </div>
+
+            <div class="feeder">
+                FEEDER 5
+                <span>ON</span>
+            </div>
+
+            <div class="feeder">
+                FEEDER 6
+                <span>ON</span>
+            </div>
+
+            <div class="feeder">
+                FEEDER 7
+                <span>ON</span>
+            </div>
+
+            <div class="feeder">
+                FEEDER 8
+                <span>ON</span>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-<!-- SCADA SECTION -->
-<div id="scada" class="section">
-    <h2>SCADA Layout</h2>
-    <p>20 MVA Transformer</p>
-    <p>33 KV Supply</p>
-    <hr>
-    <h3>11 KV Feeders</h3>
-    <p>Feeder 1 | Feeder 2 | Feeder 3 | Feeder 4</p>
-    <p>Feeder 5 | Feeder 6 | Feeder 7 | Feeder 8</p>
-</div>
+<!-- VILLAGE MAP -->
 
-<!-- MAP SECTION -->
 <div id="map" class="section">
-    <h2>Kishoreganj Sadar Village Map</h2>
-    <p>Village-wise electricity distribution map</p>
-    <p>Map will be added here later.</p>
+
+    <h2>Kishoreganj Sadar Upazila</h2>
+
+    <div class="map-area">
+
+        <h3>Village-wise Distribution Map</h3>
+
+        <p>
+            KISHOREGANJ SADAR
+        </p>
+
+        <p>
+            Village-wise electricity distribution area
+        </p>
+
+        <p>
+            Map display area
+        </p>
+
+        <p>
+            Village boundaries and feeder coverage
+        </p>
+
+        <p>
+            Map data is not included in this standalone design.
+        </p>
+
+    </div>
 </div>
 
-<!-- TABLE SECTION -->
+<!-- FEEDER TABLE -->
+
 <div id="table" class="section">
+
     <h2>11 KV Feeder Status</h2>
 
     <table>
+
         <tr>
-            <th>Feeder</th>
+            <th>SL</th>
+            <th>Feeder Name</th>
             <th>Status</th>
         </tr>
 
-        <tr><td>Feeder 1</td><td class="on">ON</td></tr>
-        <tr><td>Feeder 2</td><td class="on">ON</td></tr>
-        <tr><td>Feeder 3</td><td class="off">OFF</td></tr>
-        <tr><td>Feeder 4</td><td class="on">ON</td></tr>
-        <tr><td>Feeder 5</td><td class="on">ON</td></tr>
-        <tr><td>Feeder 6</td><td class="off">OFF</td></tr>
-        <tr><td>Feeder 7</td><td class="on">ON</td></tr>
-        <tr><td>Feeder 8</td><td class="on">ON</td></tr>
+        <tr>
+            <td>1</td>
+            <td>Feeder 1</td>
+            <td class="on">ON</td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>Feeder 2</td>
+            <td class="on">ON</td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>Feeder 3</td>
+            <td class="on">ON</td>
+        </tr>
+
+        <tr>
+            <td>4</td>
+            <td>Feeder 4</td>
+            <td class="on">ON</td>
+        </tr>
+
+        <tr>
+            <td>5</td>
+            <td>Feeder 5</td>
+            <td class="on">ON</td>
+        </tr>
+
+        <tr>
+            <td>6</td>
+            <td>Feeder 6</td>
+            <td class="on">ON</td>
+        </tr>
+
+        <tr>
+            <td>7</td>
+            <td>Feeder 7</td>
+            <td class="on">ON</td>
+        </tr>
+
+        <tr>
+            <td>8</td>
+            <td>Feeder 8</td>
+            <td class="on">ON</td>
+        </tr>
 
     </table>
+
 </div>
 
+<footer>
+    Kishoreganj Palli Bidyut Samity
+    <br>
+    Kishoreganj L-1 Substation | 20 MVA
+</footer>
+
 <script>
-    function showPage(page) {
 
-        document.getElementById("scada").style.display = "none";
-        document.getElementById("map").style.display = "none";
-        document.getElementById("table").style.display = "none";
+function showPage(page, button) {
 
-        document.getElementById(page).style.display = "block";
+    let sections = document.getElementsByClassName("section");
+
+    for (let i = 0; i < sections.length; i++) {
+        sections[i].style.display = "none";
     }
+
+    document.getElementById(page).style.display = "block";
+
+    let buttons = document.querySelectorAll("nav button");
+
+    buttons.forEach(function(btn) {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+}
+
 </script>
 
 </body>
