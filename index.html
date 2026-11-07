@@ -4,100 +4,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kishoreganj PBS Map</title>
+<title>Kishoreganj PBS SCADA</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f1f5f9;
-    text-align: center;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#101820;
+  color:white;
 }
 
-header {
-    background: #064e3b;
-    color: white;
-    padding: 18px;
+header{
+  background:#172c3b;
+  padding:18px;
+  text-align:center;
+  border-bottom:2px solid #00c878;
 }
 
-.map-container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 10px;
-    background: white;
-    border-radius: 10px;
+header h2{margin:0 0 7px}
+header p{margin:0;color:#b8c8d4;font-size:13px}
+
+nav{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  padding:12px;
+  flex-wrap:wrap;
+  background:#18232c;
 }
 
-svg {
-    width: 100%;
-    height: auto;
-    background: #e8f2e8;
-    border: 1px solid #aaa;
+nav button,.control button{
+  border:0;
+  padding:11px 16px;
+  border-radius:5px;
+  cursor:pointer;
+  background:#34495e;
+  color:white;
+  font-weight:bold;
 }
 
-.area {
-    fill: #86efac;
-    stroke: #333;
-    stroke-width: 2;
-    cursor: pointer;
+nav button.active{background:#009b65}
+
+.page{display:none;padding:15px}
+.page.active{display:block}
+
+.panel{
+  background:#1c2b36;
+  border:1px solid #354957;
+  border-radius:9px;
+  padding:15px;
+  margin-bottom:15px;
 }
 
-.area:hover {
-    stroke: red;
-    stroke-width: 4;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
 }
 
-.area.off {
-    fill: #111827;
+.feeder{
+  background:#263b48;
+  border-radius:8px;
+  padding:15px 8px;
+  text-align:center;
+  cursor:pointer;
+  border:1px solid #405563;
 }
 
-.area.light {
-    fill: #bbf7d0;
+.lamp{
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  margin:10px auto;
+  background:#00df79;
+  box-shadow:0 0 12px #00df79;
 }
 
-.area-label {
-    font-size: 13px;
-    fill: #111;
-    font-weight: bold;
-    pointer-events: none;
+.off .lamp{
+  background:#333;
+  box-shadow:none;
 }
 
-.legend {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin: 15px;
+.status{
+  font-weight:bold;
+  color:#00ed86;
 }
 
-.legend span {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+.off .status{color:#ff5252}
+
+#map{
+  width:100%;
+  max-width:750px;
+  display:block;
+  margin:auto;
+  background:#e8e9df;
+  border-radius:8px;
 }
 
-.color {
-    width: 18px;
-    height: 18px;
-    display: inline-block;
-    border: 1px solid #333;
+.area{
+  stroke:#263b32;
+  stroke-width:2;
+  cursor:pointer;
+  fill:#67dc8a;
+  transition:fill .2s;
 }
 
-button {
-    padding: 9px 15px;
-    margin: 5px;
-    border: 0;
-    border-radius: 5px;
-    cursor: pointer;
+.area:hover{stroke:#ffcc00;stroke-width:4}
+
+.area.off{fill:#111820}
+.area.off + text{fill:white}
+
+.map-label{
+  font-size:12px;
+  font-weight:bold;
+  fill:#10251a;
+  text-anchor:middle;
+  pointer-events:none;
 }
 
-.on-btn { background: #22c55e; }
-.light-btn { background: #bbf7d0; }
-.off-btn { background: #111827; color: white; }
+.area.off + .map-label{fill:white}
 
-footer {
-    padding: 15px;
-    color: #555;
+.legend{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  padding:12px;
+}
+
+.legend span{font-size:13px}
+
+.dot{
+  display:inline-block;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  margin-right:5px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#263b48;
+}
+
+th,td{
+  border:1px solid #52616c;
+  padding:12px 8px;
+  text-align:center;
+}
+
+th{background:#304d60}
+
+.on-text{color:#00ed86;font-weight:bold}
+.off-text{color:#ff5252;font-weight:bold}
+
+.control{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:12px 0;
+}
+
+.control button{background:#34495e}
+.control .green{background:#008b55}
+.control .red{background:#a62c35}
+
+.small{
+  color:#b7c5cf;
+  font-size:12px;
+  text-align:center;
+}
+
+footer{
+  padding:20px;
+  text-align:center;
+  color:#aab8c2;
+  font-size:12px;
+}
+
+@media(max-width:600px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  th,td{padding:9px 4px;font-size:12px}
 }
 </style>
 </head>
@@ -105,150 +195,345 @@ footer {
 <body>
 
 <header>
-    <h2>KISHOREGANJ PALLI BIDYUT SAMITY</h2>
-    <h3>Kishoreganj Sadar Electricity Map</h3>
+  <h2>KISHOREGANJ PBS</h2>
+  <p>Kishoreganj L-1 Sub-Station | 20 MVA</p>
+  <p>SCADA FEEDER MONITORING SYSTEM</p>
 </header>
 
-<div class="map-container">
+<nav>
+  <button class="active" onclick="showPage('scada',this)">
+    SCADA Layout
+  </button>
+  <button onclick="showPage('mapPage',this)">
+    Kishoreganj Map
+  </button>
+  <button onclick="showPage('tablePage',this)">
+    Feeder Table
+  </button>
+</nav>
 
-    <h3>Electricity Supply Area Map</h3>
+<!-- SCADA PAGE -->
+
+<section id="scada" class="page active">
+
+  <div class="panel">
+    <h3>SUB-STATION OVERVIEW</h3>
+    <p>Sub-Station: Kishoreganj L-1</p>
+    <p>Transformer: 20 MVA</p>
+    <p>Total Feeders: 08</p>
+    <p>Supply Status: <span id="overall">ALL ON</span></p>
+  </div>
+
+  <h3>FEEDER CURRENT STATUS</h3>
+
+  <div class="grid" id="feederCards"></div>
+
+  <div class="panel">
+    <h3>MASTER CONTROL</h3>
+    <div class="control">
+      <button class="green" onclick="setAll(true)">ALL ON</button>
+      <button class="red" onclick="setAll(false)">ALL OFF</button>
+    </div>
+    <p class="small">Click any feeder card to change its status.</p>
+  </div>
+
+</section>
+
+<!-- MAP PAGE -->
+
+<section id="mapPage" class="page">
+
+  <div class="panel">
+    <h3>KISHOREGANJ SADAR AREA MAP</h3>
+    <p>Union-wise illustrative supply monitoring</p>
 
     <div class="legend">
-        <span><i class="color" style="background:#86efac"></i> Electricity ON</span>
-        <span><i class="color" style="background:#bbf7d0"></i> Partial Supply</span>
-        <span><i class="color" style="background:#111827"></i> Electricity OFF</span>
+      <span><i class="dot" style="background:#67dc8a"></i>ON</span>
+      <span><i class="dot" style="background:#111820"></i>OFF</span>
     </div>
+  </div>
 
-    <p>Click any area on the map to change its status.</p>
+  <div class="panel">
 
-    <svg viewBox="0 0 700 650">
+    <svg id="map" viewBox="0 0 700 820"
+         xmlns="http://www.w3.org/2000/svg">
 
-        <!-- Outer map boundary -->
-        <path d="M170 40 L350 25 L520 85 L635 210
-                 L600 390 L520 550 L340 620
-                 L170 570 L65 430 L85 210 Z"
-              fill="#f0fdf4"
-              stroke="#166534"
-              stroke-width="5"/>
+      <!-- Approximate union layout.
+           These are illustrative polygons,
+           NOT surveyed administrative boundaries. -->
 
-        <!-- Main road -->
-        <path d="M80 300 Q250 250 350 330
-                 T620 270"
-              fill="none"
-              stroke="#d97706"
-              stroke-width="9"/>
+      <path class="area" data-feeder="1"
+       d="M300 30 L390 35 L420 110 L365 150 L300 120 L265 70 Z"/>
+      <text class="map-label" x="340" y="88">Maij Khapan</text>
 
-        <path d="M350 30 Q320 200 350 330
-                 T340 610"
-              fill="none"
-              stroke="#d97706"
-              stroke-width="7"/>
+      <path class="area" data-feeder="1"
+       d="M265 70 L300 120 L365 150 L330 215 L245 200 L205 135 Z"/>
+      <text class="map-label" x="285" y="165">Latibabad</text>
 
-        <!-- Area 1 -->
-        <polygon class="area"
-          points="175,65 330,45 350,180 220,220 115,160"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="215" y="135">Area 1</text>
+      <path class="area" data-feeder="2"
+       d="M205 135 L245 200 L235 275 L160 290 L110 225 L130 160 Z"/>
+      <text class="map-label" x="180" y="230">Rashidabad</text>
 
-        <!-- Area 2 -->
-        <polygon class="area"
-          points="350,45 510,95 550,205 420,230 350,180"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="420" y="150">Area 2</text>
+      <path class="area" data-feeder="2"
+       d="M365 150 L420 110 L465 180 L430 250 L350 260 L330 215 Z"/>
+      <text class="map-label" x="395" y="207">Mahinanda</text>
 
-        <!-- Area 3 -->
-        <polygon class="area"
-          points="115,160 220,220 250,340 100,360 75,260"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="135" y="285">Area 3</text>
+      <path class="area" data-feeder="3"
+       d="M110 225 L160 290 L150 365 L75 390 L35 310 L55 245 Z"/>
+      <text class="map-label" x="100" y="320">Binnati</text>
 
-        <!-- Area 4 -->
-        <polygon class="area"
-          points="220,220 350,180 420,230 390,350 250,340"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="295" y="280">Area 4</text>
+      <path class="area" data-feeder="3"
+       d="M160 290 L235 275 L290 335 L255 405 L150 365 Z"/>
+      <text class="map-label" x="210" y="350">Maria</text>
 
-        <!-- Area 5 -->
-        <polygon class="area"
-          points="420,230 550,205 610,300 520,390 390,350"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="480" y="305">Area 5</text>
+      <path class="area" data-feeder="4"
+       d="M235 275 L350 260 L430 250 L410 340 L290 335 Z"/>
+      <text class="map-label" x="340" y="310">Kishoreganj</text>
 
-        <!-- Area 6 -->
-        <polygon class="area"
-          points="100,360 250,340 270,490 170,550 80,440"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="155" y="430">Area 6</text>
+      <path class="area" data-feeder="5"
+       d="M430 250 L465 180 L530 225 L570 310 L490 350 L410 340 Z"/>
+      <text class="map-label" x="490" y="290">Baulai</text>
 
-        <!-- Area 7 -->
-        <polygon class="area"
-          points="250,340 390,350 420,500 270,490"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="315" y="425">Area 7</text>
+      <path class="area" data-feeder="6"
+       d="M75 390 L150 365 L255 405 L245 500 L145 535 L55 480 Z"/>
+      <text class="map-label" x="155" y="455">Chaudasat</text>
 
-        <!-- Area 8 -->
-        <polygon class="area"
-          points="390,350 520,390 550,520 420,580 420,500"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="455" y="455">Area 8</text>
+      <path class="area" data-feeder="7"
+       d="M255 405 L290 335 L410 340 L490 350 L475 455 L380 500 L245 500 Z"/>
+      <text class="map-label" x="370" y="420">Jasodal</text>
 
-        <!-- Area 9 -->
-        <polygon class="area"
-          points="170,550 270,490 420,500 420,580
-                  340,610 200,585"
-          onclick="changeStatus(this)"/>
-        <text class="area-label" x="290" y="555">Area 9</text>
+      <path class="area" data-feeder="8"
+       d="M490 350 L570 310 L635 390 L610 490 L530 530 L475 455 Z"/>
+      <text class="map-label" x="550" y="420">Korsha Karial</text>
+
+      <path class="area" data-feeder="8"
+       d="M145 535 L245 500 L380 500 L475 455 L530 530 L480 650 L360 700 L230 665 L145 610 Z"/>
+      <text class="map-label" x="330" y="600">Dana Patuli</text>
+
+      <path class="area" data-feeder="7"
+       d="M55 480 L145 535 L145 610 L230 665 L190 740 L100 700 L35 600 Z"/>
+      <text class="map-label" x="115" y="625">South Area</text>
+
+      <path class="area" data-feeder="6"
+       d="M480 650 L530 530 L610 490 L660 570 L620 680 L540 745 L450 730 L360 700 Z"/>
+      <text class="map-label" x="545" y="650">East Area</text>
+
+      <text x="350" y="790" text-anchor="middle"
+        fill="#263b32" font-size="14" font-weight="bold">
+        KISHOREGANJ SADAR
+      </text>
 
     </svg>
 
-    <div>
-        <button class="on-btn" onclick="setAll('on')">
-            All ON
-        </button>
+    <p class="small">
+      Click any area to switch its associated feeder ON/OFF.
+    </p>
 
-        <button class="light-btn" onclick="setAll('light')">
-            Partial Supply
-        </button>
+  </div>
 
-        <button class="off-btn" onclick="setAll('off')">
-            All OFF
-        </button>
+  <div class="panel">
+    <h3>MAP MASTER CONTROL</h3>
+    <div class="control">
+      <button class="green" onclick="setAll(true)">ALL ON</button>
+      <button class="red" onclick="setAll(false)">ALL OFF</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- TABLE PAGE -->
+
+<section id="tablePage" class="page">
+
+  <div class="panel">
+    <h3>FEEDER STATUS REPORT</h3>
+
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Feeder Name</th>
+            <th>Status</th>
+            <th>Control</th>
+          </tr>
+        </thead>
+        <tbody id="feederTable"></tbody>
+      </table>
     </div>
 
-</div>
+  </div>
+
+</section>
 
 <footer>
-    Designed for Kishoreganj Palli Bidyut Samity
+  Kishoreganj PBS | SCADA Monitoring Preview<br><br>
+  Designed by Md Monerul Islam
 </footer>
 
 <script>
-function changeStatus(area) {
-    if (!area.classList.contains("off") &&
-        !area.classList.contains("light")) {
-        area.classList.add("off");
-    }
-    else if (area.classList.contains("off")) {
-        area.classList.remove("off");
-        area.classList.add("light");
-    }
-    else {
-        area.classList.remove("light");
-    }
+
+// INITIAL FEEDER STATUS
+
+let feeders = [
+  {name:"Feeder-1",on:true},
+  {name:"Feeder-2",on:true},
+  {name:"Feeder-3",on:true},
+  {name:"Feeder-4",on:true},
+  {name:"Feeder-5",on:true},
+  {name:"Feeder-6",on:true},
+  {name:"Feeder-7",on:true},
+  {name:"Feeder-8",on:true}
+];
+
+// PAGE NAVIGATION
+
+function showPage(id,btn){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll("nav button")
+    .forEach(b=>b.classList.remove("active"));
+
+  btn.classList.add("active");
 }
 
-function setAll(status) {
-    document.querySelectorAll(".area").forEach(area => {
-        area.classList.remove("off", "light");
+// CHANGE FEEDER STATUS
 
-        if (status === "off") {
-            area.classList.add("off");
-        }
-
-        if (status === "light") {
-            area.classList.add("light");
-        }
-    });
+function toggleFeeder(n){
+  feeders[n-1].on = !feeders[n-1].on;
+  update();
 }
+
+// MASTER CONTROL
+
+function setAll(status){
+  feeders.forEach(f=>f.on=status);
+  update();
+}
+
+// DRAW FEEDER CARDS
+
+function drawCards(){
+
+  let html="";
+
+  feeders.forEach((f,i)=>{
+
+    html+=`
+      <div class="feeder ${f.on?"":"off"}"
+           onclick="toggleFeeder(${i+1})">
+
+        <b>${f.name}</b>
+
+        <div class="lamp"></div>
+
+        <div class="status">
+          ${f.on?"ON":"OFF"}
+        </div>
+
+      </div>
+    `;
+  });
+
+  document.getElementById("feederCards").innerHTML=html;
+}
+
+// DRAW TABLE
+
+function drawTable(){
+
+  let html="";
+
+  feeders.forEach((f,i)=>{
+
+    html+=`
+      <tr>
+        <td>${i+1}</td>
+        <td>${f.name}</td>
+
+        <td class="${f.on?"on-text":"off-text"}">
+          ${f.on?"ON":"OFF"}
+        </td>
+
+        <td>
+          <button onclick="toggleFeeder(${i+1})">
+            ${f.on?"TURN OFF":"TURN ON"}
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("feederTable").innerHTML=html;
+}
+
+// UPDATE MAP COLORS
+
+function updateMap(){
+
+  document.querySelectorAll(".area").forEach(area=>{
+
+    let n=Number(area.dataset.feeder);
+
+    area.classList.toggle("off",!feeders[n-1].on);
+
+  });
+}
+
+// OVERALL STATUS
+
+function updateOverall(){
+
+  let onCount=feeders.filter(f=>f.on).length;
+
+  let el=document.getElementById("overall");
+
+  if(onCount===8){
+    el.textContent="ALL ON";
+    el.style.color="#00ed86";
+  }
+  else if(onCount===0){
+    el.textContent="ALL OFF";
+    el.style.color="#ff5252";
+  }
+  else{
+    el.textContent=onCount+" / 8 FEEDERS ON";
+    el.style.color="#ffc107";
+  }
+}
+
+// REFRESH ALL DISPLAY
+
+function update(){
+
+  drawCards();
+  drawTable();
+  updateMap();
+  updateOverall();
+
+}
+
+// CLICK MAP AREA
+
+document.querySelectorAll(".area").forEach(area=>{
+
+  area.addEventListener("click",()=>{
+
+    let n=Number(area.dataset.feeder);
+    toggleFeeder(n);
+
+  });
+
+});
+
+// INITIAL DISPLAY
+
+update();
+
 </script>
 
 </body>
